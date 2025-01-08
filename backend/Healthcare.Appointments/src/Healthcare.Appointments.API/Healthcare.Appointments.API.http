@@ -1,0 +1,6 @@
+@Healthcare.Appointments.API_HostAddress = http://localhost:5146
+
+GET {{Healthcare.Appointments.API_HostAddress}}/
+Accept: application/json
+
+###
