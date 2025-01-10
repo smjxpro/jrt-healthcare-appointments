@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Healthcare.Appointments.Inf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Healthcare.Appointments.API", "src\Healthcare.Appointments.API\Healthcare.Appointments.API.csproj", "{0E69DDEB-507F-43FA-8512-80BFD7CB67F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Healthcare.Appointments.Application.Test", "Healthcare.Appointments.Application.Test\Healthcare.Appointments.Application.Test.csproj", "{ED948312-49BF-480D-8E21-D545978D0ABD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{0E69DDEB-507F-43FA-8512-80BFD7CB67F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E69DDEB-507F-43FA-8512-80BFD7CB67F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E69DDEB-507F-43FA-8512-80BFD7CB67F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED948312-49BF-480D-8E21-D545978D0ABD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED948312-49BF-480D-8E21-D545978D0ABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED948312-49BF-480D-8E21-D545978D0ABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED948312-49BF-480D-8E21-D545978D0ABD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,5 +52,6 @@ Global
 		{2171718B-6C5D-485E-B96E-831E6A2EB6E2} = {40B7904F-6A2F-4816-B8D4-B4C4BABD69E9}
 		{D9CC9DFB-1B06-43C5-9505-457C8CDE3E02} = {40B7904F-6A2F-4816-B8D4-B4C4BABD69E9}
 		{0E69DDEB-507F-43FA-8512-80BFD7CB67F1} = {40B7904F-6A2F-4816-B8D4-B4C4BABD69E9}
+		{ED948312-49BF-480D-8E21-D545978D0ABD} = {94465086-4A04-4C70-810D-185B34D7C4D6}
 	EndGlobalSection
 EndGlobal
