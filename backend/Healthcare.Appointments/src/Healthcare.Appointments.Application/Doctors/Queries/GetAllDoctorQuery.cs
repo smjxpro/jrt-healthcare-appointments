@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Healthcare.Appointments.Application.Doctors.Queries;
 
-public class GetAllDoctorQuery:IRequest<IEnumerable<DoctorDto>>;
+public record GetAllDoctorQuery(int Page = 1, int PageSize = 10, string? Search = null) : IRequest<IEnumerable<DoctorDto>>;

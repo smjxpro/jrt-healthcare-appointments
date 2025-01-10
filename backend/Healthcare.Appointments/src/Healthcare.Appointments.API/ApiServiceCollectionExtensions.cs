@@ -1,4 +1,5 @@
 using System.Text;
+using Healthcare.Appointments.API.Commons.Constants;
 using Healthcare.Appointments.API.Commons.Transformers;
 using Healthcare.Appointments.Application;
 using Healthcare.Appointments.Domain.Entities;
@@ -61,8 +62,9 @@ public static class ApiServiceCollectionExtensions
                 .RequireAuthenticatedUser()
                 .Build();
 
-            o.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
-            o.AddPolicy("User", policy => policy.RequireRole("User"));
+            o.AddPolicy(AuthorizationPolicies.Admin, policy => policy.RequireRole("Admin"));
+            o.AddPolicy(AuthorizationPolicies.User, policy => policy.RequireRole("User"));
+            o.AddPolicy(AuthorizationPolicies.AdminOrUser, policy => policy.RequireRole("Admin", "User"));
         });
 
 

@@ -3,7 +3,4 @@ using MediatR;
 
 namespace Healthcare.Appointments.Application.Appointments.Queries;
 
-public class GetAppointmentByIdQuery: IRequest<AppointmentDto>
-{
-    public required Guid Id { get; set; }
-}
+public record GetAppointmentByIdQuery(Guid Id): IRequest<AppointmentDto>;

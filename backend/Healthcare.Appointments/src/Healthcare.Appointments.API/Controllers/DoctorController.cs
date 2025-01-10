@@ -22,7 +22,7 @@ public class DoctorController(IMediator mediator) : BaseController(mediator)
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<DoctorDto>> GetById(Guid id)
     {
-        var doctor = await Mediator.Send(new GetDoctorByIdQuery { Id = id }, cancellationToken: HttpContext.RequestAborted);
+        var doctor = await Mediator.Send(new GetDoctorByIdQuery(id), cancellationToken: HttpContext.RequestAborted);
 
         return Ok(doctor);
     }

@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Healthcare.Appointments.Application.Appointments.Commands;
 
-public class UpdateAppointmentCommand : IRequest<AppointmentDto>
+public record UpdateAppointmentCommand : IRequest<AppointmentDto>
 {
     public required Guid Id { get; set; }
     public required Guid UserId { get; set; }

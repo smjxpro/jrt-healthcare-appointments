@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Healthcare.Appointments.API.Commons.Constants;
 using Healthcare.Appointments.API.Commons.Controllers;
 using Healthcare.Appointments.Application.Appointments.Commands;
 using Healthcare.Appointments.Application.Appointments.Dtos;
@@ -9,20 +10,37 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Healthcare.Appointments.API.Controllers;
 
-[Authorize(Policy = "User")]
+[Authorize(Policy = AuthorizationPolicies.AdminOrUser)]
 public class AppointmentController(IMediator mediator) : BaseController(mediator)
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<AppointmentDto>>> GetAll()
+    public async Task<ActionResult<IEnumerable<AppointmentDto>>> GetAll([FromQuery] GetAllAppointmentQuery query)
     {
-        var appointments = await Mediator.Send(new GetAllAppointmentQuery(), cancellationToken: HttpContext.RequestAborted);
+        var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (userIdString == null)
+        {
+            return Unauthorized();
+        }
+
+        var userId = Guid.Parse(userIdString);
+
+        var userIsAdmin = User.IsInRole("Admin");
+
+        if (!userIsAdmin)
+        {
+            query.UserId = userId;
+        }
+
+        // Only admins can see all appointments
+        var appointments = await Mediator.Send(query, cancellationToken: HttpContext.RequestAborted);
         return Ok(appointments);
     }
 
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<AppointmentDto>> GetById(Guid id)
     {
-        var appointment = await Mediator.Send(new GetAppointmentByIdQuery { Id = id }, cancellationToken: HttpContext.RequestAborted);
+        var appointment = await Mediator.Send(new GetAppointmentByIdQuery(id), cancellationToken: HttpContext.RequestAborted);
         return Ok(appointment);
     }
 
@@ -50,23 +68,7 @@ public class AppointmentController(IMediator mediator) : BaseController(mediator
     [HttpDelete("{id:guid}")]
     public async Task<ActionResult> Delete(Guid id)
     {
-        await Mediator.Send(new DeleteAppointmentCommand { Id = id }, cancellationToken: HttpContext.RequestAborted);
+        await Mediator.Send(new DeleteAppointmentCommand(id), cancellationToken: HttpContext.RequestAborted);
         return NoContent();
-    }
-
-    [HttpGet("doctor/{id:guid}")]
-    [Authorize(Policy = "Admin")]
-    public async Task<ActionResult<IEnumerable<AppointmentDto>>> GetByDoctorId(Guid id)
-    {
-        var appointments = await Mediator.Send(new GetAllAppointmentByDoctorQuery { DoctorId = id }, cancellationToken: HttpContext.RequestAborted);
-        return Ok(appointments);
-    }
-
-    [HttpGet("user/{id:guid}")]
-    [Authorize(Policy = "Admin")]
-    public async Task<ActionResult<IEnumerable<AppointmentDto>>> GetByUserId(Guid id)
-    {
-        var appointments = await Mediator.Send(new GetAllAppointmentByUserQuery { UserId = id }, cancellationToken: HttpContext.RequestAborted);
-        return Ok(appointments);
     }
 }

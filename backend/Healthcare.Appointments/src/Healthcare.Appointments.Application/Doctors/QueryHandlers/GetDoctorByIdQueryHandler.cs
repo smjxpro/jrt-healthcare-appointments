@@ -5,20 +5,14 @@ using Healthcare.Appointments.Domain.Contracts;
 using MapsterMapper;
 using MediatR;
 
-namespace Healthcare.Appointments.Application.Doctors.Handlers;
+namespace Healthcare.Appointments.Application.Doctors.QueryHandlers;
 
 public class GetDoctorByIdQueryHandler(IDoctorRepository doctorRepository, IMapper mapper)
     : IRequestHandler<GetDoctorByIdQuery, DoctorDto>
 {
     public async Task<DoctorDto> Handle(GetDoctorByIdQuery request, CancellationToken cancellationToken)
     {
-        var doctor = await doctorRepository.GetByIdAsync(request.Id);
-
-        if (doctor == null)
-        {
-            throw new NotFoundException("Doctor not found");
-        }
-
+        var doctor = await doctorRepository.GetByIdAsync(request.Id, cancellationToken) ?? throw new NotFoundException("Doctor not found");
         return mapper.Map<DoctorDto>(doctor);
     }
 }

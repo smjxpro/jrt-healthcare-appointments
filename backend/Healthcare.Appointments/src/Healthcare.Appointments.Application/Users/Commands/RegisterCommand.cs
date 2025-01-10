@@ -3,10 +3,10 @@ using MediatR;
 
 namespace Healthcare.Appointments.Application.Users.Commands;
 
-public class RegisterCommand : IRequest
+public record RegisterCommand : IRequest
 {
     [Required] public required string Name { get; set; }
-    
+
     [Required] public required string UserName { get; set; }
 
     [Required] public required string Email { get; set; }

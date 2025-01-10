@@ -4,9 +4,9 @@ using Healthcare.Appointments.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace Healthcare.Appointments.Application.Users.Handlers;
+namespace Healthcare.Appointments.Application.Users.CommandHandlers;
 
-public class RegisterCommandHandler(UserManager<User> userManager, RoleManager<Role> roleManager) : IRequestHandler<RegisterCommand>
+public class RegisterCommandHandler(UserManager<User> userManager) : IRequestHandler<RegisterCommand>
 {
     public async Task Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
@@ -23,9 +23,6 @@ public class RegisterCommandHandler(UserManager<User> userManager, RoleManager<R
         {
             throw new BadRequestException(result.Errors.First().Description);
         }
-
-
-
 
         var roleAddResult = await userManager.AddToRoleAsync(user, "User");
 

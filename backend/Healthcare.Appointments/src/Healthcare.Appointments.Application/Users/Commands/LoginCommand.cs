@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Healthcare.Appointments.Application.Users.Commands;
 
-public class LoginCommand: IRequest<TokenDto>
+public record LoginCommand: IRequest<TokenDto>
 {
     [Required]
     public required string UserName { get; set; }
