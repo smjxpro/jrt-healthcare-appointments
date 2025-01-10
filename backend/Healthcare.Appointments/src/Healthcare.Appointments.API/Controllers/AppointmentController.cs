@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Healthcare.Appointments.API.Controllers;
 
-[Authorize]
+[Authorize(Policy = "User")]
 public class AppointmentController(IMediator mediator) : BaseController(mediator)
 {
     [HttpGet]
@@ -55,6 +55,7 @@ public class AppointmentController(IMediator mediator) : BaseController(mediator
     }
 
     [HttpGet("doctor/{id:guid}")]
+    [Authorize(Policy = "Admin")]
     public async Task<ActionResult<IEnumerable<AppointmentDto>>> GetByDoctorId(Guid id)
     {
         var appointments = await Mediator.Send(new GetAllAppointmentByDoctorQuery { DoctorId = id }, cancellationToken: HttpContext.RequestAborted);
@@ -62,6 +63,7 @@ public class AppointmentController(IMediator mediator) : BaseController(mediator
     }
 
     [HttpGet("user/{id:guid}")]
+    [Authorize(Policy = "Admin")]
     public async Task<ActionResult<IEnumerable<AppointmentDto>>> GetByUserId(Guid id)
     {
         var appointments = await Mediator.Send(new GetAllAppointmentByUserQuery { UserId = id }, cancellationToken: HttpContext.RequestAborted);

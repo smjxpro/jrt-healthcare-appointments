@@ -2,15 +2,18 @@ using Healthcare.Appointments.Domain.Contracts;
 using Healthcare.Appointments.Domain.Entities;
 using Healthcare.Appointments.Infrastructure.Commons;
 using Healthcare.Appointments.Infrastructure.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 
 namespace Healthcare.Appointments.Infrastructure.Repositories;
 
-public class UserRepository(ApplicationDbContext context, IConfiguration configuration) : IUserRepository
+public class UserRepository(ApplicationDbContext context,  UserManager<User> userManager, IConfiguration configuration) : IUserRepository
 {
-    public string GetTokenAsync(User user)
+    public async Task<string> GetTokenAsync(User user)
     {
-        return TokenGenerator.GetToken(user, configuration);
+
+        var roles = await userManager.GetRolesAsync(user);
+        return TokenGenerator.GetToken(user, roles,  configuration);
     }
 
 

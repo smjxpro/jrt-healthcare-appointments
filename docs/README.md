@@ -21,7 +21,8 @@
 3. Open the application: `http://localhost:5146`
 
 ### Run the Application with Docker
-1. Run the script: `./scripts/docker.sh` and follow the instructions
+1. cd to `scripts` directory: `cd scripts`
+2. Run the command: `./docker.sh` and choose 1 to build and run the application
 2. Open the application: `http://localhost:7001`
 
 ## Architecture

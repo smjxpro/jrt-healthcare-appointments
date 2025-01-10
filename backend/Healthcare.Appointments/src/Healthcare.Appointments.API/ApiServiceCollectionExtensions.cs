@@ -60,6 +60,9 @@ public static class ApiServiceCollectionExtensions
             o.DefaultPolicy = new AuthorizationPolicyBuilder()
                 .RequireAuthenticatedUser()
                 .Build();
+
+            o.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+            o.AddPolicy("User", policy => policy.RequireRole("User"));
         });
 
 

@@ -4,5 +4,5 @@ namespace Healthcare.Appointments.Domain.Contracts;
 
 public interface IUserRepository : IRepository
 {
-    string GetTokenAsync(User user);
+    Task<string> GetTokenAsync(User user);
 }

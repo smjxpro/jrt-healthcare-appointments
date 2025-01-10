@@ -6,20 +6,32 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Healthcare.Appointments.Application.Users.Handlers;
 
-public class RegisterCommandHandler(UserManager<User> userManager) : IRequestHandler<RegisterCommand>
+public class RegisterCommandHandler(UserManager<User> userManager, RoleManager<Role> roleManager) : IRequestHandler<RegisterCommand>
 {
     public async Task Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
-        var result = await userManager.CreateAsync(new User
+        var user = new User
         {
             Name = request.Name,
             Email = request.Email,
             UserName = request.UserName,
-        }, request.Password);
+        };
+
+        var result = await userManager.CreateAsync(user, request.Password);
 
         if (!result.Succeeded)
         {
             throw new BadRequestException(result.Errors.First().Description);
+        }
+
+
+
+
+        var roleAddResult = await userManager.AddToRoleAsync(user, "User");
+
+        if (!roleAddResult.Succeeded)
+        {
+            throw new BadRequestException(roleAddResult.Errors.First().Description);
         }
     }
 }

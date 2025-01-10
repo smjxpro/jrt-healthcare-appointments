@@ -28,7 +28,7 @@ public class LoginCommandHandler(UserManager<User> userManager, IUserRepository 
             throw new BadRequestException("User or password is incorrect");
         }
 
-        var token = userRepository.GetTokenAsync(user);
+        var token = await userRepository.GetTokenAsync(user);
 
         return new TokenDto(token);
     }

@@ -28,6 +28,7 @@ public class DoctorController(IMediator mediator) : BaseController(mediator)
     }
 
     [HttpPost]
+    [Authorize(Policy = "Admin")]
     public async Task<ActionResult<DoctorDto>> Add([FromBody] AddDoctorCommand command)
     {
         var doctor = await Mediator.Send(command, cancellationToken: HttpContext.RequestAborted);
@@ -35,6 +36,7 @@ public class DoctorController(IMediator mediator) : BaseController(mediator)
     }
 
     [HttpPut("{id:guid}")]
+    [Authorize(Policy = "Admin")]
     public async Task<ActionResult<DoctorDto>> Update(Guid id, [FromBody] UpdateDoctorCommand command)
     {
         command.Id = id;
@@ -43,6 +45,7 @@ public class DoctorController(IMediator mediator) : BaseController(mediator)
     }
 
     [HttpDelete("{id:guid}")]
+    [Authorize(Policy = "Admin")]
     public async Task<ActionResult> Delete(Guid id)
     {
         await Mediator.Send(new DeleteDoctorCommand { Id = id }, cancellationToken: HttpContext.RequestAborted);

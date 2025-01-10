@@ -9,16 +9,22 @@ namespace Healthcare.Appointments.Infrastructure.Commons;
 
 public static class TokenGenerator
 {
-    public static string GetToken(User user, IConfiguration configuration)
+    public static string GetToken(User user, IList<string> roles, IConfiguration configuration)
     {
         var authClaims = new List<Claim>
         {
             new(ClaimTypes.Name, user.UserName),
             new(ClaimTypes.Email, user.Email),
             new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+
         };
 
-        var token = GenerateJwtToken(authClaims,configuration);
+        foreach (var role in roles)
+        {
+            authClaims.Add(new Claim(ClaimTypes.Role, role));
+        }
+
+        var token = GenerateJwtToken(authClaims, configuration);
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
     private static JwtSecurityToken GenerateJwtToken(List<Claim> authClaims, IConfiguration configuration)
