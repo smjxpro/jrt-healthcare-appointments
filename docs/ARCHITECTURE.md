@@ -6,6 +6,7 @@ The architecture of the project is based on the following components:
 - [Healthcare.Appointments.Domain](../backend/Healthcare.Appointments/src/Healthcare.Appointments.Domain/)
 - [Healthcare.Appointments.Application](../backend/Healthcare.Appointments/src/Healthcare.Appointments.Application/)
 - [Healthcare.Appointments.Infrastructure](../backend/Healthcare.Appointments/src/Healthcare.Appointments.Infrastructure/)
+- [Healthcare.Appointments.Tests](../backend/Healthcare.Appointments/tests/Healthcare.Appointments.Tests/)
 
 ## Healthcare.Appointments.API
 
@@ -22,3 +23,7 @@ This project contains the application logic for the application. It is responsib
 ## Healthcare.Appointments.Infrastructure
 
 This project contains the infrastructure for the application. It is responsible for connecting to the database and storing the data.
+
+## Healthcare.Appointments.Tests
+
+This project contains the tests for the application. It is responsible for testing the application logic.
